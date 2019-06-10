@@ -14,7 +14,7 @@ Show notifications on your media player.
 3. Add the address of your kodi instance to the config of the addon
 
 ## Usage
-The addon registers a Kodi device with a `show(title, message)` action.
+The addon registers a Kodi device with a `show(title, message, displaytime)` action.
 
 Currently, a rule can only trigger parameterless actions.
 
