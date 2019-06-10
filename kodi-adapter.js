@@ -21,7 +21,7 @@ class KodiDevice extends Device {
     this.description = manifest.description;
     this.callbacks = {};
 
-    const show = async (title, message) => {
+    const show = async (title, message, displaytime) => {
       console.log(`Sending message: ${title}/${message}`);
       const address = manifest.moziot.config.address;
 
@@ -32,7 +32,7 @@ class KodiDevice extends Device {
             [{
               jsonrpc: '2.0',
               method: 'GUI.ShowNotification',
-              params: [title, message],
+              params: [title, message, '', displaytime],
               id: 0
             }]
           ),
@@ -56,11 +56,14 @@ class KodiDevice extends Device {
           },
           message: {
             type: 'string'
+          },
+          displaytime: {
+            type: 'integer'
           }
         }
       }
     }, (action) => {
-      show(action.input.title, action.input.message);
+      show(action.input.title, action.input.message, action.input.displaytime);
     });
 
     if (manifest.moziot.config.messages) {
@@ -68,7 +71,8 @@ class KodiDevice extends Device {
         const {
           name,
           title,
-          message
+          message,
+          displaytime
         } = messageInfo;
 
         console.log(`Creating action for ${name}`);
@@ -77,7 +81,7 @@ class KodiDevice extends Device {
           title: name,
           description: 'Show a notification'
         }, () => {
-          show(title, message);
+          show(title, message, displaytime);
         });
       }
     }

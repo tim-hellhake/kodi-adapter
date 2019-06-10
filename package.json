@@ -1,7 +1,7 @@
 {
   "name": "kodi-adapter",
   "display_name": "Kodi",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "description": "Show notifications on your media player",
   "main": "index.js",
   "scripts": {
@@ -64,6 +64,10 @@
               "message": {
                 "type": "string",
                 "title": "The content of your message"
+              },
+              "displaytime": {
+                "type": "integer",
+                "title": "The time in milliseconds the message should be shown"
               }
             }
           }
