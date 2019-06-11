@@ -26,13 +26,20 @@ class KodiDevice extends Device {
       const address = manifest.moziot.config.address;
 
       if (address && address.trim && address.trim() !== '') {
+        const params = [title, message];
+
+        if (displaytime) {
+          params.push('');
+          params.push(Math.max(1500, Math.min(5000, displaytime)));
+        }
+
         await fetch(`http://${address}:8080/jsonrpc`, {
           method: 'post',
           body: JSON.stringify(
             [{
               jsonrpc: '2.0',
               method: 'GUI.ShowNotification',
-              params: [title, message, '', displaytime || 5000],
+              params,
               id: 0
             }]
           ),
