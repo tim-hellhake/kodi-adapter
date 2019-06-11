@@ -32,7 +32,7 @@ class KodiDevice extends Device {
             [{
               jsonrpc: '2.0',
               method: 'GUI.ShowNotification',
-              params: [title, message, '', displaytime],
+              params: [title, message, '', displaytime || 5000],
               id: 0
             }]
           ),
