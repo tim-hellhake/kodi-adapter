@@ -1,37 +1,22 @@
 {
-  "name": "kodi-adapter",
-  "display_name": "Kodi",
+  "manifest_version": 1,
+  "id": "kodi-adapter",
+  "name": "Kodi",
+  "short_name": "Kodi",
   "version": "0.1.4",
   "description": "Show notifications on your media player",
-  "main": "index.js",
-  "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
-    "lint": "eslint ."
-  },
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/tim-hellhake/kodi-adapter.git"
-  },
-  "author": "Tim Hellhake",
+  "homepage_url": "https://github.com/tim-hellhake/kodi-adapter#readme",
   "license": "MPL-2.0",
-  "bugs": {
-    "url": "https://github.com/tim-hellhake/kodi-adapter/issues"
+  "author": "Tim Hellhake",
+  "gateway_specific_settings": {
+    "webthings": {
+      "exec": "{nodeLoader} {path}",
+      "strict_min_version": "0.10.0",
+      "strict_max_version": "*",
+      "primary_type": "adapter"
+    }
   },
-  "homepage": "https://github.com/tim-hellhake/kodi-adapter#readme",
-  "files": [
-    "LICENSE",
-    "SHA256SUMS",
-    "index.js",
-    "kodi-adapter.js",
-    "manifest.json"
-  ],
-  "moziot": {
-    "api": {
-      "min": 2,
-      "max": 2
-    },
-    "plugin": true,
-    "exec": "{nodeLoader} {path}",
+  "options": {
     "schema": {
       "type": "object",
       "required": [
@@ -75,12 +60,5 @@
         }
       }
     }
-  },
-  "dependencies": {
-    "fetch": "^1.1.0"
-  },
-  "devDependencies": {
-    "babel-eslint": "^10.0.2",
-    "eslint": "^6.1.0"
   }
 }
