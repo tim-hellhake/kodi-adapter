@@ -8,5 +8,15 @@
 
 const KodiAdapter = require('./kodi-adapter');
 
-module.exports =
-    (addonManager, manifest) => new KodiAdapter(addonManager, manifest);
+module.exports = (addonManager, manifest) => {
+  new KodiAdapter(addonManager, manifest);
+
+  try {
+    const KodiNotifier = require('./kodi-notifier');
+    new KodiNotifier(addonManager, manifest);
+  } catch (e) {
+    if (!(e instanceof TypeError)) {
+      console.error(e);
+    }
+  }
+};
