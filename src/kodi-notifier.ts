@@ -6,30 +6,26 @@
 
 'use strict';
 
-const fetch = require('node-fetch');
+import { Notifier, Outlet } from "gateway-addon";
 
-const {
-  Notifier,
-  Outlet,
-} = require('gateway-addon');
+import fetch from 'node-fetch';
 
 class KodiOutlet extends Outlet {
-  constructor(notifier, config) {
+  constructor(notifier: Notifier, private config: any) {
     super(notifier, KodiOutlet.name);
     this.name = 'Kodi';
-    this.config = config;
   }
 
-  async notify(title, message) {
+  async notify(title: string, message: string) {
     await this.show(title, message, 3000);
   }
 
-  async show(title, message, displaytime) {
+  async show(title: string, message: string, displaytime: number) {
     console.log(`Sending message: ${title}/${message}`);
     const address = this.config.address;
 
     if (address && address.trim && address.trim() !== '') {
-      const params = [title, message];
+      const params: (string | number)[] = [title, message];
 
       if (displaytime) {
         params.push('');
@@ -56,8 +52,8 @@ class KodiOutlet extends Outlet {
   }
 }
 
-class KodiNotifier extends Notifier {
-  constructor(addonManager, manifest) {
+export class KodiNotifier extends Notifier {
+  constructor(addonManager: any, manifest: any) {
     super(addonManager, KodiNotifier.name, manifest.name);
 
     addonManager.addNotifier(this);
@@ -69,5 +65,3 @@ class KodiNotifier extends Notifier {
     }
   }
 }
-
-module.exports = KodiNotifier;

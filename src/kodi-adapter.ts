@@ -6,27 +6,26 @@
 
 'use strict';
 
-const fetch = require('node-fetch');
+import { Adapter, Device } from "gateway-addon";
 
-const {
-  Adapter,
-  Device,
-} = require('gateway-addon');
+import fetch from 'node-fetch';
 
 class KodiDevice extends Device {
-  constructor(adapter, manifest) {
+  private callbacks: { [key: string]: (action: any) => void };
+
+  constructor(adapter: Adapter, manifest: any) {
     super(adapter, manifest.display_name);
     this['@context'] = 'https://iot.mozilla.org/schemas/';
     this.name = manifest.display_name;
     this.description = manifest.description;
     this.callbacks = {};
 
-    const show = async (title, message, displaytime) => {
+    const show = async (title: string, message: string, displaytime: number) => {
       console.log(`Sending message: ${title}/${message}`);
       const address = manifest.moziot.config.address;
 
       if (address && address.trim && address.trim() !== '') {
-        const params = [title, message];
+        const params: (string | number)[] = [title, message];
 
         if (displaytime) {
           params.push('');
@@ -69,7 +68,7 @@ class KodiDevice extends Device {
           }
         }
       }
-    }, (action) => {
+    }, (action: any) => {
       show(action.input.title, action.input.message, action.input.displaytime);
     });
 
@@ -94,12 +93,12 @@ class KodiDevice extends Device {
     }
   }
 
-  addCallbackAction(description, callback) {
+  addCallbackAction(description: any, callback: (action: any) => void) {
     this.addAction(description.title, description);
     this.callbacks[description.title] = callback;
   }
 
-  async performAction(action) {
+  async performAction(action: any) {
     action.start();
 
     const callback = this.callbacks[action.name];
@@ -114,13 +113,11 @@ class KodiDevice extends Device {
   }
 }
 
-class KodiAdapter extends Adapter {
-  constructor(addonManager, manifest) {
+export class KodiAdapter extends Adapter {
+  constructor(addonManager: any, manifest: any) {
     super(addonManager, KodiAdapter.name, manifest.name);
     addonManager.addAdapter(this);
     const kodi = new KodiDevice(this, manifest);
     this.handleDeviceAdded(kodi);
   }
 }
-
-module.exports = KodiAdapter;

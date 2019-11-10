@@ -3,10 +3,10 @@
   "display_name": "Kodi",
   "version": "0.2.0",
   "description": "Show notifications on your media player",
-  "main": "index.js",
+  "main": "lib/index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "lint": "eslint ."
+    "build": "tsc -p ."
   },
   "repository": {
     "type": "git",
@@ -22,9 +22,9 @@
     "LICENSE",
     "SHA256SUMS",
     "index.js",
-    "kodi-adapter.js",
+    "lib/kodi-adapter.js",
     "manifest.json",
-    "kodi-notifier.js"
+    "lib/kodi-notifier.js"
   ],
   "moziot": {
     "api": {
@@ -78,10 +78,11 @@
     }
   },
   "dependencies": {
-    "fetch": "^1.1.0"
+    "node-fetch": "^2.6.0"
   },
   "devDependencies": {
-    "babel-eslint": "^10.0.3",
-    "eslint": "^6.5.1"
+    "@types/node": "^12.12.7",
+    "@types/node-fetch": "^2.5.3",
+    "typescript": "^3.7.2"
   }
 }
