@@ -21,7 +21,7 @@
   "files": [
     "LICENSE",
     "SHA256SUMS",
-    "index.js",
+    "lib/index.js",
     "lib/kodi-adapter.js",
     "manifest.json",
     "lib/kodi-notifier.js"
